@@ -1,9 +1,11 @@
-package io.eddie.productservice.products.application.port;
+package io.eddie.productservice.products.application.port.in;
 
 import io.eddie.productservice.products.domain.model.Product;
-import io.eddie.productservice.products.domain.vo.ProductSpecification;
 
-import java.util.List;
+import io.eddie.productservice.products.domain.vo.ProductSpecification;
+import io.eddie.productservice.products.domain.vo.pagination.PageQuery;
+import io.eddie.productservice.products.domain.vo.pagination.PageResult;
+
 import java.util.Optional;
 
 public interface ProductCrudUseCase {
@@ -12,7 +14,7 @@ public interface ProductCrudUseCase {
 
     Optional<Product> getProductByCode(String code);
 
-    List<Product> findAll();
+    PageResult<Product> findAll(PageQuery pageQuery);
 
     Product updateSpecification(String code, ProductSpecification specification);
 

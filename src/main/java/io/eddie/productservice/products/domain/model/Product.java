@@ -33,6 +33,15 @@ public class Product {
 
     }
 
+    public void changeSpecification(ProductSpecification newSpec) {
+
+        validate(newSpec);
+
+        this.specification = newSpec;
+        this.updatedAt = LocalDateTime.now();
+
+    }
+
     private void validate(ProductSpecification specification) {
 
         if ( specification.name().isBlank() ) {

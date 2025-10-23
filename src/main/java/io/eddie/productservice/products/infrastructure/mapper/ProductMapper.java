@@ -2,9 +2,12 @@ package io.eddie.productservice.products.infrastructure.mapper;
 
 import io.eddie.productservice.products.domain.model.Product;
 import io.eddie.productservice.products.domain.vo.ProductSpecification;
+import io.eddie.productservice.products.domain.vo.pagination.PageResult;
 import io.eddie.productservice.products.infrastructure.model.dto.ProductDescription;
 import io.eddie.productservice.products.infrastructure.model.persistence.ProductEntity;
 import io.eddie.productservice.products.infrastructure.model.web.ProductSpecificationRequest;
+
+import java.util.List;
 
 public class ProductMapper {
 
@@ -57,6 +60,23 @@ public class ProductMapper {
                 product.getSpecification().description(),
                 product.getSpecification().price()
         );
+    }
+
+    public static PageResult<ProductDescription> toDescriptionResult(PageResult<Product> pageResult) {
+
+        List<ProductDescription> content = pageResult.content()
+                .stream()
+                .map(ProductMapper::toDescription)
+                .toList();
+
+        return new PageResult<>(
+                content,
+                pageResult.page(),
+                pageResult.size(),
+                pageResult.totalElements(),
+                pageResult.hasNext()
+        );
+
     }
 
 }

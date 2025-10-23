@@ -19,4 +19,25 @@ public class ProductMapper {
 
     }
 
+    public static void applyToEntity(Product domain, ProductEntity entity) {
+
+        ProductSpecification specification = domain.getSpecification();
+
+        entity.setName(specification.name());
+        entity.setDescription(specification.description());
+        entity.setPrice(specification.price());
+
+        entity.updateClock();
+
+    }
+
+    public static Product toDomain(ProductEntity entity) {
+        return new Product(
+                entity.getCode(),
+                new ProductSpecification(entity.getName(), entity.getDescription(), entity.getPrice()),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt()
+        );
+    }
+
 }
